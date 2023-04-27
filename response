@@ -1,0 +1,46 @@
+//Libraries to import for the test to run on selenium
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SubscriptionTest {
+    public static void main(String[] args) {
+        // Set the path for chromedriver.exe
+        System.setProperty("webdriver.chrome.driver", "//setPath here according to the chrome driver path on your pc");
+       
+        // Create an instance of the WebDriver
+        WebDriver driver = new ChromeDriver();
+       
+        // Navigate to the provided URL
+        driver.get("https://subscribe.stctv.com/");
+       
+        // Find and validate the subscription package type, price, and currency for the country that loaded upon opening the URL (in my case UAE)
+        WebElement packageType = driver.findElement(By.xpath("/html//strong[@id='name-classic']"));
+        String expectedType = "Classic";
+        if (packageType.getText().equals(expectedType)) {
+            System.out.println("Package type is correct.");
+        } else {
+            System.out.println("Package type is incorrect.");
+        }
+       
+        WebElement packagePrice = driver.findElement(By.xpath("//div[@id='currency-classic']/b[.='10.9']"));
+        String expectedPrice = "10.9";
+        if (packagePrice.getText().equals(expectedPrice)) {
+            System.out.println("Package price is correct.");
+        } else {
+            System.out.println("Package price is incorrect.");
+        }
+       
+        WebElement packageCurrency = driver.findElement(By.xpath("//div[@id='currency-classic']/i[.='USD/month']"));
+        String expectedCurrency = "USD/month";
+        if (packageCurrency.getText().equals(expectedCurrency)) {
+            System.out.println("Package currency is correct.");
+        } else {
+            System.out.println("Package currency is incorrect.");
+        }
+       
+        // Close the browser
+        driver.quit();
+    }
+}
